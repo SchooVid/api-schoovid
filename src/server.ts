@@ -1,5 +1,6 @@
 import { config } from "dotenv";
 import { createConnection } from "typeorm";
+import { router } from "./index.route";
 
 config();
 const express       = require('express');
@@ -20,9 +21,13 @@ createConnection({
     synchronize : true
 }).then(() => {
     const app     = express();
-   
+    
+    app.use(bodyparser.json());
+    app.use('/',router);
+
     app.listen(port,() => {
         console.log(`Server listening on port : ${port}`);
     })
 },() => {});
+
 
