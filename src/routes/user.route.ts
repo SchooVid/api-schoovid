@@ -18,7 +18,7 @@ users_router.post("/",async (req,res)=> {
     try {
         const user = await userController.create({...req.body});
 
-        res.json(user);
+        res.status(200).json(user);
     }
     catch(e)
     {
