@@ -9,7 +9,7 @@ auth_router.post("/signin",async (req,res)=> {
 
     const loginInfo = await authController.signIn({...req.body});
    
-    res.json(loginInfo);
+    res.status(loginInfo.status).json(loginInfo);
     
 });
 

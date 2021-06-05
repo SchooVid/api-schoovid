@@ -16,9 +16,46 @@ users_router.post("/",async (req,res)=> {
     const userController = UserController.getInstance();
 
     try {
+        //Control values
+        let errorMessage = "";
+        let status = 200;
+
+        //Values received
+        let username = req.body.username;
+        let password = req.body.password;
+
+        if(username == undefined || password == undefined)
+        {
+            errorMessage = "Les paramètres sont invalides";
+            status = 400;
+        }
+
+        if(username.length < 4)
+        {
+            errorMessage = "Votre nom d'utilisateur doit contenir 4 caractères ou plus";
+            status = 400;
+        }
+
+
+        if(password.length < 8)
+        {
+            errorMessage = "Votre mot de passe doit contenir 8 caractères ou plus";
+            status = 400;
+        }
+
+        if(errorMessage.length > 0)
+        {
+            const response = {
+                "errorMessage" : errorMessage,
+                "status" : status
+            };
+
+            res.status(status).send(response)
+        }
+
         const user = await userController.create({...req.body});
 
-        res.status(200).json(user);
+        res.status(status).json(user);
     }
     catch(e)
     {
