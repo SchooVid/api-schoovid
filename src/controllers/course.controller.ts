@@ -1,5 +1,5 @@
 import { Course__course, CourseProps } from "../models/course.model";
-import { getRepository, Repository } from "typeorm";
+import { getConnection, getRepository, Repository } from "typeorm";
 
 export class CourseController {
 
@@ -32,15 +32,55 @@ export class CourseController {
         return await this.courseRepository.findOneOrFail(id);
     }
 
-    public async create(props:CourseProps) : Promise<Course__course> {
+    public async create(props:CourseProps) : Promise<any> {
  
         //Control
+        const date_diffusion        = props.date_diffusion;
+        const date_fin_diffusion    = props.date_fin_diffusion;
+        const formateurId           = props.formateur;
+        let errorMessage            = "";
+        let status                  = 200;
+        let data;
 
-        const course = this.courseRepository.create({
-            ...props
-        });
+        try {
+            const isCourseBetweenDates = await this.courseRepository
+            .createQueryBuilder("id")
+            .where("date_diffusion <= :date_diffusion",{date_diffusion})
+            .andWhere("date_fin_diffusion >= :date_fin_diffusion",{date_fin_diffusion})
+            .andWhere("formateurId = :formateurId",{formateurId})
+            .getMany();
 
-        return await this.courseRepository.save(course);
+        
+            if(isCourseBetweenDates.length > 0)
+            {
+                //Must do a middleware that sends an error
+                errorMessage = "Ce cours déborde sur les plages horaires d'un autre cours"
+                status = 400; 
+                data = {};      
+            }
+            else 
+            {
+                const course = await this.courseRepository.create({
+                    ...props
+                });
+
+                data =  await this.courseRepository.save(course);
+            }
+            
+            return {
+                "status" : status,
+                "errorMessage" : errorMessage,
+                "data" : data
+            };
+        }
+        catch(e)
+        {
+            return {
+                "status" : 500,
+                "errorMessage" : e.message,
+                "data" : {}
+            };
+        }
 
     }
 

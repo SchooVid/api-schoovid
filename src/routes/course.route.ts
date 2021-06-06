@@ -10,7 +10,7 @@ course_router.post("/",async (req,res) => {
 
     const course = await courseController.create({...req.body});
     
-    res.status(200).json(course);
+    res.status(course.status).json(course);
 });
 
 //Get every courses

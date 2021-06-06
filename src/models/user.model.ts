@@ -1,5 +1,6 @@
 import { Interface } from "node:readline";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Course__course } from "./course.model";
 
 export enum UserRole{
     ADMIN="ADMIN",ETUDIANT="ETUDIANT",PROFESSEUR="PROFESSEUR"    
@@ -33,4 +34,7 @@ export class User implements UserProps {
         default : UserRole.ETUDIANT
     })
     role : string;
+
+    @OneToMany(type => Course__course, course => course.formateur) 
+    course : Course__course[];
 }

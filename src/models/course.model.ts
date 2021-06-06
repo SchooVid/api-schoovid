@@ -2,11 +2,13 @@ import { Interface } from "node:readline";
 import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from "typeorm";
 import {Course__level} from "./course_level.model"; 
 import {Course__category} from "./course_category.model"; 
+import { User } from "./user.model";
 
 
 export interface CourseProps {
     libelle : string;
     description : string;
+    formateur : User;
     niveau : Course__level;
     categorie : Course__category;
     date_diffusion : Date;
@@ -24,6 +26,9 @@ export class Course__course implements CourseProps {
         unique : true
     })
     libelle : string;
+
+    @ManyToOne(type => User, formateur => formateur.course)
+    formateur : User;
 
     @Column({
         nullable : true,
