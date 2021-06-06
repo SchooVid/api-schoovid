@@ -1,5 +1,7 @@
 import { Interface } from "node:readline";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Course__course } from "./course.model";
+
 
 export interface CourseLevel {
 
@@ -17,5 +19,9 @@ export class Course__level implements CourseLevel {
         unique : true
     })
     libelle : string;
+
+    @OneToMany(type => Course__course, course => course.niveau) 
+    course : Course__course[];
+
 
 }

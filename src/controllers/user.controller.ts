@@ -22,6 +22,10 @@ export class UserController {
         return UserController.instance;
     }
 
+    public async getOneUserById(id : string): Promise<User> {
+        return await this.userRepository.findOneOrFail(id);
+    }
+
     public async getAll() : Promise<User[]>{
 
         return await this.userRepository.find();
@@ -40,5 +44,11 @@ export class UserController {
         return await this.userRepository.save(user);
 
     }
+
+    public async update(id: string, props:UserProps) : Promise<User> {
+        await this.userRepository.update(id,props);
+        return this.getOneUserById(id);
+    }
+
 
 }

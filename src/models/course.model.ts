@@ -1,5 +1,5 @@
 import { Interface } from "node:readline";
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne } from "typeorm";
 import {Course__level} from "./course_level.model"; 
 import {Course__category} from "./course_category.model"; 
 
@@ -31,10 +31,10 @@ export class Course__course implements CourseProps {
     })
     description : string;
 
-    @OneToOne(type => Course__level) @JoinColumn() 
+    @ManyToOne(type => Course__level, niveau => niveau.course)
     niveau: Course__level;
 
-    @OneToOne(type => Course__category) @JoinColumn() 
+    @ManyToOne(type => Course__category, categorie => categorie.course) 
     categorie: Course__category;
 
 
