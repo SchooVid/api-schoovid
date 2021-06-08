@@ -1,6 +1,8 @@
 import { getRepository, Repository } from "typeorm";
 import { User, UserProps } from "../models/user.model";
 import { sign } from "jsonwebtoken";
+import { compare } from "bcrypt";
+import { cpuUsage } from "node:process";
 
 export class AuthController {
 
@@ -21,7 +23,10 @@ export class AuthController {
 
         const userRepository = getRepository(User);
         const username = props.username ? props.username : null;
-
+        const password = props.password ? props.password : null;
+        
+        let id : String;
+        let token : String;
         let user : User;
         let errorMessage : String;
         let status = 200;
@@ -32,13 +37,29 @@ export class AuthController {
                 username
             });
 
-            const token = sign({id:user.id}, process.env.JWT_KEY || "hardwebtoken",{expiresIn: 86400});
-            const id    = user.id;
+
+            //Compare passwords 
+            const checkPassword = await compare(password,user.password);
             
+            if(checkPassword === true)
+            {
+                token = sign({id:user.id}, process.env.JWT_KEY || "hardwebtoken",{expiresIn: 86400});
+                id    = user.id;
+            }
+            else
+            {
+                errorMessage = "Mot de passe incorrect";
+                status = 400;
+                id = "";
+                token = "";
+            }
+
+
             return {
                 status : status,
                 id : id,
                 username : username,
+                role : user.role,
                 token : token,
                 errorMessage : errorMessage
             };
