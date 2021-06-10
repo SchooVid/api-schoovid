@@ -24,13 +24,66 @@ export class CourseController {
 
     public async getAll() : Promise<Course__course[]>{
 
-        return await this.courseRepository.find();
+        const data =  await this.courseRepository.createQueryBuilder()
+        .getMany();
+        console.log(data)
+        return data;
 
     }
 
-    public async getOneCoursebyId(id : string): Promise<Course__course> {
-        return await this.courseRepository.findOneOrFail(id);
+    public async getOneCoursebyId(id : string): Promise<any> 
+    {
+        let status = 200;
+        let errorMessage = "";
+
+        try{
+            const data =  await this.courseRepository.findOneOrFail(id);
+
+            return {
+                "status" : status,
+                "errorMessage" : errorMessage,
+                "data" : data
+            }
+        }
+        catch(e)
+        {
+            status = 400
+
+            return {
+                "status" : status,
+                "errorMessage" : e,
+                "data" : {}
+            };
+        }
     }
+
+    public async getAllCoursesFromAUser(id : String): Promise<any> 
+    {
+
+        let status = 200;
+        let errorMessage = "";
+
+        try{
+            const data =  await this.courseRepository.createQueryBuilder().where("formateurId =  :id",{id}).getMany();
+
+            return {
+                "status" : status,
+                "errorMessage" : errorMessage,
+                "data" : data
+            }
+        }
+        catch(e)
+        {
+            status = 400;
+
+            return {
+                "status" : status,
+                "errorMessage" : e,
+                "data" : {}
+            }
+        }
+    }
+
 
     public async create(props:CourseProps) : Promise<any> {
  

@@ -16,12 +16,26 @@ course_router.post("/",async (req,res) => {
 //Get every courses
 course_router.get("/all",async (req,res)=> {
 
-    const authController : CourseController = CourseController.getInstance();
+    const courseController : CourseController = CourseController.getInstance();
 
-    const courseInfo = await authController.getAll();
+    const courseInfo = await courseController.getAll();
    
     res.status(200).json(courseInfo);
     
 });
+
+//Get every courses from one professor
+course_router.get("/professor-course", async (req,res) => {
+
+    const id = req.body.id;
+
+    const authController : CourseController = CourseController.getInstance();
+    const courseInfo = await authController.getAllCoursesFromAUser(id);
+
+    console.log(courseInfo)
+
+    res.status(courseInfo.status).json(courseInfo);
+
+})
 
 export {course_router};
