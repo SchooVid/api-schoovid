@@ -24,10 +24,7 @@ export class CourseController {
 
     public async getAll() : Promise<Course__course[]>{
 
-        const data =  await this.courseRepository.createQueryBuilder()
-        .getMany();
-        console.log(data)
-        return data;
+        return await this.courseRepository.find();
 
     }
 
@@ -64,13 +61,13 @@ export class CourseController {
         let errorMessage = "";
 
         try{
-            const data =  await this.courseRepository.createQueryBuilder().where("formateurId =  :id",{id}).getMany();
+            return await this.courseRepository.createQueryBuilder().where("formateurId =  :id",{id}).getMany();
 
-            return {
+            /*return {
                 "status" : status,
                 "errorMessage" : errorMessage,
                 "data" : data
-            }
+            }*/
         }
         catch(e)
         {
@@ -143,7 +140,7 @@ export class CourseController {
     }
 
     public async delete(id:string): Promise<void> {
-        await this.courseRepository.softDelete(id);
+        await this.courseRepository.delete(id);
     }
 
 }

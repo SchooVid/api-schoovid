@@ -11,8 +11,8 @@ export interface CourseProps {
     formateur : User;
     niveau : Course__level;
     categorie : Course__category;
-    date_diffusion : Date;
-    date_fin_diffusion : Date;
+    date_diffusion : string;
+    date_fin_diffusion : string;
     lien_diffusion : string;
 }
 
@@ -54,16 +54,18 @@ export class Course__course implements CourseProps {
 
 
     @Column({
-        nullable : false,
-        unique : false
+        nullable : true,
+        unique : false,
+        type : "datetime"
     })
-    date_diffusion : Date;
+    date_diffusion : string;
 
     @Column({
-        nullable : false,
-        unique : false
+        nullable : true,
+        unique : false,
+        type  : "datetime"
     })
-    date_fin_diffusion : Date;
+    date_fin_diffusion : string;
 
     @Column({
         nullable : true,

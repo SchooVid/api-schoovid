@@ -25,17 +25,32 @@ course_router.get("/all",async (req,res)=> {
 });
 
 //Get every courses from one professor
-course_router.get("/professor-course", async (req,res) => {
+course_router.get("/professor-course/:id", async (req,res) => {
 
-    const id = req.body.id;
+    const id = req.params.id;
 
-    const authController : CourseController = CourseController.getInstance();
-    const courseInfo = await authController.getAllCoursesFromAUser(id);
+    const courseController : CourseController = CourseController.getInstance();
+    const courseInfo = await courseController.getAllCoursesFromAUser(id);
 
-    console.log(courseInfo)
 
-    res.status(courseInfo.status).json(courseInfo);
+    res.status(200).json(courseInfo);
 
+})
+
+//Delete one course depending on the id
+course_router.delete("/delete/:id", async (req,res) => {
+    try {
+        const id = req.params.id
+
+        const courseController : CourseController = CourseController.getInstance();
+        await courseController.delete(id)
+
+        res.status(204).end()
+    }
+    catch (err)
+    {
+        res.status(400).json(err)
+    }
 })
 
 export {course_router};
