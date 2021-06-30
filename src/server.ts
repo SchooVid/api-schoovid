@@ -7,7 +7,6 @@ const express       = require('express');
 const bodyparser    = require('body-parser');
 const mysql         = require('mysql');
 
-
 const port    = process.env.PORT || 3000;
 
 createConnection({
@@ -28,6 +27,6 @@ createConnection({
     app.listen(port,() => {
         console.log(`Server listening on port : ${port}`);
     })
-},() => {});
+}).catch(console.log);
 
 
