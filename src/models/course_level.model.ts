@@ -1,16 +1,15 @@
-import { Interface } from "node:readline";
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { Course__course } from "./course.model";
 
 
-export interface CourseLevel {
+export interface CourseLevelProps {
 
     libelle:string;
 
 }
 
 @Entity()
-export class Course__level implements CourseLevel {
+export class Course__level implements CourseLevelProps {
     @PrimaryGeneratedColumn("uuid")
     id : string;
     

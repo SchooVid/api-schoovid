@@ -1,4 +1,3 @@
-import { Interface } from "node:readline";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Course__course } from "./course.model";
 
