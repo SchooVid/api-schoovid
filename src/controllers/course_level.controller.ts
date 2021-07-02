@@ -31,4 +31,27 @@ export class CourseLevelController
         return this.courseLevelRepository.createQueryBuilder().where(':id',{id}).getOne();
 
     }
+
+    public async createCourseLevel(props : CourseLevelProps) : Promise<any>
+    {
+        const courseLevel = await this.courseLevelRepository.create({
+            ...props
+        });
+
+       
+        return await this.courseLevelRepository.save(courseLevel)
+        
+    }
+
+    public async updateCourseLevel(id : string, props : CourseLevelProps) : Promise<Course__level>
+    {
+        await this.courseLevelRepository.update(id,props);
+
+        return await this.courseLevelRepository.findOne(id);
+    }
+
+    public async deleteCourseLevel(id : string) : Promise<void>
+    {
+        await this.courseLevelRepository.delete(id);
+    }
 } 
