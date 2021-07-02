@@ -1,5 +1,4 @@
 import {Router} from "express";
-import { CourseController } from "../controllers/course.controller";
 import { CourseCategoryController } from "../controllers/course_category.controller";
 
 const course_category_router = Router()
@@ -82,3 +81,5 @@ course_category_router.delete("/delete/:id", async (req,res) => {
         res.status(400).json(err);
     }
 });
+
+export {course_category_router};
