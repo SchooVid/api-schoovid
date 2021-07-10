@@ -27,7 +27,7 @@ export class CourseCategoryController
 
     public async getOneCategoryById(id : string) : Promise<Course__category>
     {
-        return await this.courseCategoryRepository.createQueryBuilder().where(':id',{id}).getOne();
+        return await this.courseCategoryRepository.findOne(id)
     }
 
     public async createCourseCategory(props : CourseCategoryProps) : Promise<any>

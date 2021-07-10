@@ -87,13 +87,13 @@ export class CourseController {
         //Control
         const date_diffusion        = props.date_diffusion;
         const date_fin_diffusion    = props.date_fin_diffusion;
-        const formateurId           = props.formateur;
+        const formateurId           = props.formateurId;
         let errorMessage            = "";
         let status                  = 200;
         let data;
 
         try {
-            const isCourseBetweenDates = await this.courseRepository
+            /*const isCourseBetweenDates = await this.courseRepository
             .createQueryBuilder("id")
             .where("date_diffusion <= :date_diffusion",{date_diffusion})
             .andWhere("date_fin_diffusion >= :date_fin_diffusion",{date_fin_diffusion})
@@ -107,17 +107,21 @@ export class CourseController {
                 errorMessage = "Ce cours déborde sur les plages horaires d'un autre cours"
                 status = 400; 
                 data = {};      
-            }
-            else 
-            {
-                const course = await this.courseRepository.create({
-                    ...props
-                });
+            }*/
+            
+            const course = await this.courseRepository.create({
+                ...props
+            });
 
-                data =  await this.courseRepository.save(course);
-            }
+            data =  await this.courseRepository.save(course);
+
+            console.log(props.niveauId)
+            console.log(props.formateurId)
+            console.log(props.categorieId)
+            console.log(data)
             
             return {
+                "success" : true,
                 "status" : status,
                 "errorMessage" : errorMessage,
                 "data" : data

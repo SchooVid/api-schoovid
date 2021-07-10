@@ -8,9 +8,9 @@ import { User } from "./user.model";
 export interface CourseProps {
     libelle : string;
     description : string;
-    formateur : User;
-    niveau : Course__level;
-    categorie : Course__category;
+    formateurId : string;
+    niveauId : string;
+    categorieId : string;
     date_diffusion : string;
     date_fin_diffusion : string;
     lien_diffusion : string;
@@ -28,11 +28,15 @@ export class Course__course implements CourseProps {
     libelle : string;
 
 
-    @RelationId( (course : Course__course) => course.formateur)
-
-    formateurId : string;
     @ManyToOne(type => User, formateur => formateur.course)
+    @JoinColumn({name : 'formateurId'})
     formateur : User;
+
+    @Column ({
+        nullable : false,
+        unique : false
+    })
+    formateurId : string;
 
     @Column({
         nullable : true,
@@ -40,17 +44,25 @@ export class Course__course implements CourseProps {
     })
     description : string;
 
-    @RelationId( (course : Course__course) => course.niveau)
-
-    niveauId : string;
     @ManyToOne(type => Course__level, niveau => niveau.course)
+    @JoinColumn({name : 'niveauId'})
     niveau: Course__level;
 
-    @RelationId((course : Course__course) => course.categorie )
+    @Column({
+        nullable : false,
+        unique : false
+    })
+    niveauId : string;
 
-    categorieId : string;
     @ManyToOne(type => Course__category, categorie => categorie.course) 
+    @JoinColumn({name : 'categorieId'})
     categorie: Course__category;
+
+    @Column({
+        nullable : false,
+        unique : false
+    })
+    categorieId : string;
 
 
     @Column({

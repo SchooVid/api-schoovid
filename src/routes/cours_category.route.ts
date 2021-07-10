@@ -25,12 +25,12 @@ course_category_router.get("/one/:id", async(req,res) => {
     try{
         const courseCategory = await courseController.getOneCategoryById(id);
 
-        return courseCategory;
+        res.status(200).json(courseCategory);
 
     }
     catch(err)
     {
-        res.status(200).json(err)
+        res.status(400).json(err)
     }
 });
 
@@ -74,7 +74,7 @@ course_category_router.delete("/delete/:id", async (req,res) => {
     try{
         await courseController.deleteCourseCategory(id);
 
-        res.json(204).end()
+        res.status(204).end()
     }
     catch(err)
     {
