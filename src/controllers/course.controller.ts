@@ -115,10 +115,6 @@ export class CourseController {
 
             data =  await this.courseRepository.save(course);
 
-            console.log(props.niveauId)
-            console.log(props.formateurId)
-            console.log(props.categorieId)
-            console.log(data)
             
             return {
                 "success" : true,

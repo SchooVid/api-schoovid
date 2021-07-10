@@ -32,7 +32,6 @@ course_router.get("/professor-course/:id", async (req,res) => {
     const courseController : CourseController = CourseController.getInstance();
     const courseInfo = await courseController.getAllCoursesFromAUser(id);
 
-
     res.status(200).json(courseInfo);
 
 })
