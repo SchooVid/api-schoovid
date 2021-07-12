@@ -89,7 +89,7 @@ export class CourseController {
         const date_fin_diffusion    = props.date_fin_diffusion;
         const formateurId           = props.formateurId;
         let errorMessage            = "";
-        let status                  = 200;
+        let status                  = 201;
         let data;
 
         try {
