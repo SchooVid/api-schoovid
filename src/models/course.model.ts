@@ -1,5 +1,5 @@
 import { Interface } from "node:readline";
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne, RelationId } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, ManyToOne, RelationId, OneToMany } from "typeorm";
 import {Course__level} from "./course_level.model"; 
 import {Course__category} from "./course_category.model"; 
 import { User } from "./user.model";
@@ -85,4 +85,6 @@ export class Course__course implements CourseProps {
     })
     lien_diffusion : string;
 
+    @OneToMany(type => Course__course, course => course.id) 
+    course : string;
 }

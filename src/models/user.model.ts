@@ -9,6 +9,8 @@ export enum UserRole{
 export interface UserProps {
     username : string;
     password : string;
+    lastname : string;
+    firstname : string;
 }
 
 @Entity()
@@ -34,6 +36,18 @@ export class User implements UserProps {
         default : UserRole.ETUDIANT
     })
     role : string;
+
+    @Column({
+        nullable : false,
+        unique : false
+    })
+    lastname : string;
+
+    @Column({
+        nullable : false,
+        unique : false
+    })
+    firstname : string;
 
     @OneToMany(type => Course__course, course => course.formateur) 
     course : Course__course[];
