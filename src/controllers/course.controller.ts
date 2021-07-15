@@ -24,7 +24,16 @@ export class CourseController {
 
     public async getAll() : Promise<Course__course[]>{
 
-        return await this.courseRepository.find();
+        const query = `SELECT 
+            course__course.*,
+            user.firstname,
+            user.lastname 
+        FROM 
+            course__course 
+        LEFT JOIN 
+            user ON user.id = course__course.formateurId`;
+
+        return await this.courseRepository.manager.query(query)
 
     }
 

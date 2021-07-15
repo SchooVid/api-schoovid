@@ -1,5 +1,4 @@
 import {Router} from "express";
-import { CourseController } from "../controllers/course.controller";
 import { CourseLevelController } from "../controllers/course_level.controller";
 
 const course_level_router = Router()

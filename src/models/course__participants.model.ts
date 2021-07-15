@@ -2,14 +2,14 @@ import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGe
 import { Course__course } from "./course.model";
 import { User } from "./user.model";
 
-export interface CourseParticipant 
+export interface CourseParticipantProps 
 {
     courseId : string;
     participantId : string;
 }
 
 @Entity()
-export class Course__participant implements CourseParticipant
+export class Course__participant implements CourseParticipantProps
 {
     @Column ({
         nullable : false,
