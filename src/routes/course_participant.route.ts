@@ -57,3 +57,5 @@ course_participant_router.delete("/delete", async (req,res) => {
         res.status(400).json(err);
     }
 });
+
+export {course_participant_router}
