@@ -29,11 +29,17 @@ course_router.get("/description/:id", async (req, res) => {
 
     const id = req.params.id;
 
-    const courseController : CourseController = CourseController.getInstance()
-    const courseInfo = await courseController.getOneCoursebyId(id);
+    try{
 
-    res.status(200).json(courseInfo)
+        const courseController : CourseController = CourseController.getInstance()
+        const courseInfo = await courseController.getOneCoursebyId(id);
 
+        res.status(200).json(courseInfo)
+    }
+    catch(e)
+    {
+        res.status(400).json(e);
+    }
 })
 
 //Get every courses from one professor
