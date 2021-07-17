@@ -9,6 +9,8 @@ const mysql         = require('mysql');
 
 const port    = process.env.PORT || 3000;
 
+console.log(process.env.DB_HOST)
+
 createConnection({
     type : "mysql",
     logging : true,
