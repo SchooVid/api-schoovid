@@ -25,13 +25,12 @@ course_router.get("/all",async (req,res)=> {
 });
 
 //Get one course depending on the id
-course_router.get("description/:id", async (req, res) => {
+course_router.get("/description/:id", async (req, res) => {
 
     const id = req.params.id;
 
-    const courseController : CourseController = CourseController.getInstance();
-
-    const courseInfo = await courseController.getOneCoursebyId;
+    const courseController : CourseController = CourseController.getInstance()
+    const courseInfo = await courseController.getOneCoursebyId(id);
 
     res.status(200).json(courseInfo)
 
