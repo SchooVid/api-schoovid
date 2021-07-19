@@ -50,5 +50,10 @@ export class UserController {
         return this.getOneUserById(id);
     }
 
+    public async delete(id: string) : Promise<boolean> {
+        const result = await this.userRepository.delete(id);
+        return result.affected == 0 ? false : true;
+    }
+
 
 }
