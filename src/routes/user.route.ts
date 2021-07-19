@@ -18,8 +18,6 @@ users_router.patch("/",async (req,res) => {
     try {
         let errorMessage = "";
         let status = 200;
-
-        console.log(req.body.user)
         
         if(req.body.user == undefined)
         {
@@ -75,7 +73,6 @@ users_router.patch("/",async (req,res) => {
 
         const modifiedUser = await userController.update(req.body.id,{...req.body.user})
 
-        console.log(modifiedUser)
         res.status(status).json(modifiedUser)
 
     } catch(e)
@@ -83,6 +80,46 @@ users_router.patch("/",async (req,res) => {
         res.status(400).send(e);
     }
 
+});
+
+users_router.delete("/",async (req,res)=> {
+
+    const userController = UserController.getInstance();
+
+    try {
+        let errorMessage = "";
+        let status = 200;
+
+        if(req.body.id == undefined || req.body.id.length == 0)
+        {
+            errorMessage = "Veuillez entrer un ID";
+            status = 400;
+        }
+
+        if(errorMessage.length > 0)
+        {
+            const response = {
+                "errorMessage" : errorMessage,
+                "status" : status
+            };
+
+            res.status(status).send(response)
+        }
+
+        const modifiedUser = await userController.delete(req.body.id)
+
+        if(modifiedUser){
+            res.status(status).json({"Success":true})
+        }
+        else{
+            res.status(400).json({"Status":400,"errorMessage":"Id inconnu"})
+        }
+
+
+    } catch (e)
+    {
+        res.status(400).send(e);
+    }
 });
 
 users_router.post("/",async (req,res)=> {
