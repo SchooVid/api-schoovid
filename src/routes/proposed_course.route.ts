@@ -56,7 +56,7 @@ proposed_course_router.delete('/:id', async (req,res) => {
     try{
         await proposedCourseController.deleteProposedCourse(id);
 
-        res.status(201).end();
+        res.status(201).json({code: '201'});
     }
     catch(e)
     {
