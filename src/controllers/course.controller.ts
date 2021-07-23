@@ -27,11 +27,14 @@ export class CourseController {
         const query = `SELECT 
             course__course.*,
             user.firstname,
-            user.lastname 
+            user.lastname,
+            course__category.libelle as category
         FROM 
             course__course 
         LEFT JOIN 
-            user ON user.id = course__course.formateurId`;
+            user ON user.id = course__course.formateurId 
+        LEFT JOIN 
+            course__category ON course__category.id = course__course.categorieId`;
 
         return await this.courseRepository.manager.query(query)
 

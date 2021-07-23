@@ -54,6 +54,6 @@ export class ProposedCourseController {
 
     public async deleteProposedCourse(id : string) : Promise<void> 
     {
-        await this.proposedCourseRepository.softDelete(id);
+        await this.proposedCourseRepository.delete(id);
     }
 }
