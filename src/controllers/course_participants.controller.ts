@@ -38,10 +38,10 @@ export class CourseParticipantController {
         this.courseParticipantRepository.softDelete(id);
     }
 
-    public async participantCanViewCourse(participantId : string, courseId : string) : Promise<Course__participant> 
+    public async participantCanViewCourse(participantId : string, courseId : string) : Promise<Course__participant[]> 
     {
         return this.courseParticipantRepository.createQueryBuilder()
-        .where("partcipantId = :participantId",{participantId})
+        .where("participantId = :participantId",{participantId})
         .where("courseId = :courseId",{courseId})
         .getMany();
 
