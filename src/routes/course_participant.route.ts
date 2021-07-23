@@ -58,7 +58,7 @@ course_participant_router.delete("/delete", async (req,res) => {
     }
 });
 
-course_participant_router.get("/one", async (req,res) => {
+course_participant_router.post("/one", async (req,res) => {
     const courseParticipantController : CourseParticipantController = CourseParticipantController.getInstance();
 
     try {
