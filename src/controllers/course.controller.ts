@@ -28,13 +28,16 @@ export class CourseController {
             course__course.*,
             user.firstname,
             user.lastname,
-            course__category.libelle as category
+            course__category.libelle as category,
+            course__level.libelle as level
         FROM 
             course__course 
         LEFT JOIN 
             user ON user.id = course__course.formateurId 
         LEFT JOIN 
-            course__category ON course__category.id = course__course.categorieId`;
+            course__category ON course__category.id = course__course.categorieId
+        LEFT JOIN 
+            course__level ON course__level.id = course__course.niveauId`;
 
         return await this.courseRepository.manager.query(query)
 
