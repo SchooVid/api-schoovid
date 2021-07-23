@@ -120,6 +120,7 @@ export class CourseController {
                 status = 400; 
                 data = {};      
             }*/
+            console.log(props)
             
             const course = await this.courseRepository.create({
                 ...props

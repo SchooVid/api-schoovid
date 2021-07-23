@@ -66,14 +66,14 @@ export class Course__course implements CourseProps {
 
 
     @Column({
-        nullable : true,
+        nullable : false,
         unique : false,
         type : "datetime"
     })
     date_diffusion : string;
 
     @Column({
-        nullable : true,
+        nullable : false,
         unique : false,
         type  : "datetime"
     })
