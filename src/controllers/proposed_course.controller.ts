@@ -22,7 +22,20 @@ export class ProposedCourseController {
 
     public async getAllProposedCourse() : Promise<Course__proposed_course[]>
     {
-        return await this.proposedCourseRepository.find();
+        const query = `SELECT 
+            course__proposed_course.*,
+            course__category.libelle as categorie_libelle,
+            course__level.libelle as niveau_libelle,
+            user.firstname,
+            user.lastname
+        FROM
+            course__proposed_course
+        LEFT JOIN course__level ON course__level.id = course__proposed_course.niveauId
+        LEFT JOIN course__category ON course__category.id = course__proposed_course.categorieId 
+        LEFT JOIN user ON user.id = course__proposed_course.userId
+         `
+
+        return await this.proposedCourseRepository.manager.query(query);
     }
 
     public async getOneProposedCourse(id : string) : Promise<Course__proposed_course>
