@@ -58,4 +58,23 @@ course_participant_router.delete("/delete", async (req,res) => {
     }
 });
 
+course_participant_router.get("/one", async (req,res) => {
+    const courseParticipantController : CourseParticipantController = CourseParticipantController.getInstance();
+
+    try {
+
+        const userId = req.param.userId ?? "";
+        const participantId = req.param.participantId ?? "";
+
+        const data = courseParticipantController.participantCanViewCourse(userId,participantId);
+
+        res.status(200).json(data);
+
+    }
+    catch(err)
+    {
+        res.status(400).json(err);
+    }
+});
+
 export {course_participant_router}
