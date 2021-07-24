@@ -38,12 +38,19 @@ export class CourseParticipantController {
         this.courseParticipantRepository.softDelete(id);
     }
 
-    public async participantCanViewCourse(participantId : string, courseId : string) : Promise<Course__participant[]> 
+    public async participantCanViewCourse(participantId : string, courseId : string) : Promise<Boolean> 
     {
-        return this.courseParticipantRepository.createQueryBuilder()
+        const data = await this.courseParticipantRepository.createQueryBuilder()
         .where("participantId = :participantId",{participantId})
-        .where("courseId = :courseId",{courseId})
+        .andWhere("courseId = :courseId",{courseId})
         .getMany();
+
+        if(data.length > 0)
+        {
+            return true;
+        }
+
+        return false;
 
     }
 }

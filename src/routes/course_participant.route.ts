@@ -63,10 +63,11 @@ course_participant_router.post("/one", async (req,res) => {
 
     try {
 
-        const userId = req.param.userId ?? "";
-        const participantId = req.param.participantId ?? "";
+        const courseId = req.body.courseId ?? "";
+        const participantId = req.body.participantId ?? "";
 
-        const data = courseParticipantController.participantCanViewCourse(userId,participantId);
+
+        const data = await courseParticipantController.participantCanViewCourse(participantId,courseId);
 
         res.status(200).json(data);
 
