@@ -32,6 +32,12 @@ export class UserController {
 
     }
 
+    public async getAllProfessor() : Promise<User[]>{
+
+        return await this.userRepository.find({where: {role:"PROFESSEUR"}});
+
+    }
+
     public async create(props:UserProps) : Promise<User> {
 
         const encryptedPassword = await hash(props.password,10);
