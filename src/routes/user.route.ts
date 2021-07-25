@@ -8,22 +8,7 @@ users_router.get("/all",async (req,res) => {
     const userController : UserController = UserController.getInstance();
 
     res.json(await userController.getAll());
-});
 
-users_router.get("/all/professeur",async (req,res) => {
-
-    const userController : UserController = UserController.getInstance();
-
-    res.json(await userController.getAllProfessor());
-});
-
-users_router.get("/:id",async (req,res) => {
-
-    const userController : UserController = UserController.getInstance();
-
-    const id = req.params.id ?? ""
-
-    res.json(await userController.getOneUserById(id));
 });
 
 users_router.patch("/",async (req,res) => {

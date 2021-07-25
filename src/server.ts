@@ -1,7 +1,6 @@
 import { config } from "dotenv";
 import { createConnection } from "typeorm";
 import { router } from "./index.route";
-const cors = require('cors')
 
 config();
 const express       = require('express');
@@ -26,9 +25,6 @@ createConnection({
     
     app.use(bodyparser.json());
     app.use('/',router);
-    app.use(cors({
-        origin: "https://pa-flutterweb.web.app/"
-    }))
 
     app.listen(port,() => {
         console.log(`Server listening on port : ${port}`);
